@@ -1,4 +1,5 @@
 # source: https://github.com/NeelShah18/emot/blob/master/emot/emo_unicode.py
+import re
 
 emoticon_lib = {
     u":‑)":"Happy face or smiley",
@@ -223,6 +224,11 @@ emoticon_lib = {
     u"(o.o)":"Surprised",
     u"oO":"Surprised",
     u"(*￣m￣)":"Dissatisfied",
-    u"(‘A`)":"Snubbed or Deflated"
+    u"(‘A`)":"Snubbed or Deflated",
+    u"<3":"Heart"
 
 }
+
+def replace_emoticons_with_text(text):
+    emoticon_pattern = re.compile('|'.join(re.escape(emoticon) for emoticon in emoticon_lib.keys()))
+    return emoticon_pattern.sub(lambda match: emoticon_lib[match.group(0)], text)
